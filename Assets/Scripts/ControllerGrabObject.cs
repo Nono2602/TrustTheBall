@@ -10,6 +10,8 @@ public class ControllerGrabObject : MonoBehaviour {
     // 2
     private GameObject objectInHand; //objet qu'on "porte"
 
+    private AudioSource[] sons;
+
     private SteamVR_Controller.Device Controller
     {
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
@@ -18,6 +20,7 @@ public class ControllerGrabObject : MonoBehaviour {
     void Awake()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
+        sons = GetComponents<AudioSource>();
     }
 
     /**************Savoir si il y avait collision************************/
@@ -36,6 +39,7 @@ public class ControllerGrabObject : MonoBehaviour {
     public void OnTriggerEnter(Collider other)
     {
         SetCollidingObject(other);
+        SteamVR_Controller.Input((int)trackedObj.index).TriggerHapticPulse(3999);
     }
 
     // 2
@@ -64,6 +68,12 @@ public class ControllerGrabObject : MonoBehaviour {
         // 2
         var joint = AddFixedJoint();
         joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
+
+        //sound
+        if (objectInHand.gameObject.CompareTag("Ball"))
+        {
+            sons[1].Play();
+        }
     }
 
     // 3
@@ -89,6 +99,12 @@ public class ControllerGrabObject : MonoBehaviour {
         }
         // 4
         objectInHand = null;
+
+        //sound
+        if (collidingObject.gameObject.CompareTag("Ball"))
+        {
+            sons[0].Play();
+        }
     }
 
     // Update is called once per frame
