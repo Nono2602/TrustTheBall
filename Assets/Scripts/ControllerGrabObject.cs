@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControllerGrabObject : MonoBehaviour {
 
@@ -121,6 +122,15 @@ public class ControllerGrabObject : MonoBehaviour {
                     collidingObject = null;
                     GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody>().isKinematic = false;
                     GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody>().useGravity = true;
+                }
+                else if(collidingObject.gameObject.CompareTag("lobby"))
+                {
+                    sons[2].Play();
+                    SceneManager.LoadScene("Lobby");
+                } else if(collidingObject.gameObject.CompareTag("playAgain"))
+                {
+                    sons[2].Play();
+                    SceneManager.LoadScene("Game");
                 }
                 else
                 {

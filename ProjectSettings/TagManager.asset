@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ball
   - Play
+  - lobby
+  - playAgain
   layers:
   - Default
   - TransparentFX
