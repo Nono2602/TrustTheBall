@@ -112,10 +112,21 @@ public class ControllerGrabObject : MonoBehaviour {
         // 1
         if (Controller.GetHairTriggerDown())
         {
-            if (collidingObject)
+            if(collidingObject)
             {
-                GrabObject();
-            }
+                if(collidingObject.gameObject.CompareTag("Play"))
+                {
+                    GameObject.Find("Level").GetComponent<TimerLevel>().setTimerOn(true);
+                    Destroy(collidingObject);
+                    collidingObject = null;
+                    GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody>().isKinematic = false;
+                    GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody>().useGravity = true;
+                }
+                else
+                {
+                    GrabObject();
+                }
+            } 
         }
 
         // 2
