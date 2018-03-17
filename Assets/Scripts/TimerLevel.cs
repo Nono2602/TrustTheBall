@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class TimerLevel : MonoBehaviour {
 
-    private float timer;
+    [SerializeField] float timer = 10f;
     private bool timerOn;
     private Vector3 originLobbyButton;
     private Vector3 originPlayAgainButton;
+    private AudioSource soundEndLevel;
 
     // Use this for initialization
     private void Awake()
@@ -20,11 +21,11 @@ public class TimerLevel : MonoBehaviour {
     }
 
     void Start () {
-        timer = 10f;
         int min = (int)(timer / 60);
         int sec = (int)(timer % 60);
         GameObject.Find("UI/TextTimer").GetComponent<Text>().text = min + ":" + sec;
         timerOn = false;
+        soundEndLevel = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -54,7 +55,7 @@ public class TimerLevel : MonoBehaviour {
 
     void timerEnded()
     {
-        //afficher menu
+        soundEndLevel.Play();
         print("Time out !");
         Destroy(GameObject.FindGameObjectWithTag("Ball"));
         GameObject.FindGameObjectWithTag("lobby").transform.position = originLobbyButton;
