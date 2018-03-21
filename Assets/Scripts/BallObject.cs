@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class BallObject : MonoBehaviour {
-
+    [SerializeField] TextMesh scoreText;
     private AudioSource[] sons;
     private SphereCollider trashCollider;
     private Vector3 origin;
@@ -32,7 +32,7 @@ public class BallObject : MonoBehaviour {
             transform.position = origin;
             this.GetComponent<Rigidbody>().velocity = Vector3.zero;
             score++;
-            GameObject.Find("UI/TextScore").GetComponent<Text>().text = "Score : " + score;
+            scoreText.text = "Score : " + score;
         }
     }
 }

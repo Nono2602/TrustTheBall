@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class TimerLevel : MonoBehaviour {
 
     [SerializeField] float timer = 10f;
+    [SerializeField] TextMesh timerText;
     private bool timerOn;
     private Vector3 originLobbyButton;
     private Vector3 originPlayAgainButton;
     private AudioSource soundEndLevel;
+    private bool end;
 
     // Use this for initialization
     private void Awake()
@@ -21,9 +23,21 @@ public class TimerLevel : MonoBehaviour {
     }
 
     void Start () {
+        end = false;
         int min = (int)(timer / 60);
         int sec = (int)(timer % 60);
-        GameObject.Find("UI/TextTimer").GetComponent<Text>().text = min + ":" + sec;
+        timerText.text = min + ":" + sec;
+        if (timer > 0f)
+        {
+            if (sec < 10)
+            {
+                timerText.text = min + ":0" + sec;
+            }
+            else
+            {
+                timerText.text = min + ":" + sec;
+            }
+        }
         timerOn = false;
         soundEndLevel = GetComponent<AudioSource>();
     }
@@ -40,10 +54,10 @@ public class TimerLevel : MonoBehaviour {
             {
                 if(sec < 10)
                 {
-                    GameObject.Find("UI/TextTimer").GetComponent<Text>().text = min + ":0" + sec;
+                    timerText.text = min + ":0" + sec;
                 } else
                 {
-                    GameObject.Find("UI/TextTimer").GetComponent<Text>().text = min + ":" + sec;
+                    timerText.text = min + ":" + sec;
                 }
             }
             else
@@ -55,11 +69,15 @@ public class TimerLevel : MonoBehaviour {
 
     void timerEnded()
     {
-        soundEndLevel.Play();
-        print("Time out !");
-        Destroy(GameObject.FindGameObjectWithTag("Ball"));
-        GameObject.FindGameObjectWithTag("lobby").transform.position = originLobbyButton;
-        GameObject.FindGameObjectWithTag("playAgain").transform.position = originPlayAgainButton;
+        if(!end)
+        {
+            soundEndLevel.Play();
+            print("Time out !");
+            Destroy(GameObject.FindGameObjectWithTag("Ball"));
+            GameObject.FindGameObjectWithTag("lobby").transform.position = originLobbyButton;
+            GameObject.FindGameObjectWithTag("playAgain").transform.position = originPlayAgainButton;
+            end = true;
+        }        
     }
 
     public void setTimerOn(bool v)
