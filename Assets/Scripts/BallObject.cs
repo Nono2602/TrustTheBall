@@ -30,6 +30,7 @@ public class BallObject : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
         sons = GetComponents<AudioSource>();
         trashCollider = GameObject.Find("Trash").GetComponent<SphereCollider>();
         origin = transform.position;
@@ -37,8 +38,14 @@ public class BallObject : MonoBehaviour {
         this.GetComponent<Rigidbody>().isKinematic = true;
         this.GetComponent<Rigidbody>().useGravity = false;
 
-        deltaTime = (randomTime) ? randomFloat(timeMin, timeMax) : 2f;
+        deltaTime = (randomTime) ? randomFloat(timeMin, timeMax) : 20f;
         timer = 0;
+
+        moveMode   = StartGame.moveMode;
+        timeMode   = StartGame.timeMode;
+        randomTime = StartGame.randomTime;
+        timeMin    = StartGame.timeMin;
+        timeMax    = StartGame.timeMax;
     }
 
     void Update()

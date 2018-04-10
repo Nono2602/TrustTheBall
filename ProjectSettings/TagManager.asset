@@ -8,6 +8,10 @@ TagManager:
   - Play
   - lobby
   - playAgain
+  - Level1
+  - Level2
+  - Level3
+  - Level4
   layers:
   - Default
   - TransparentFX

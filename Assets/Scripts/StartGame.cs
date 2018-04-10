@@ -5,10 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour {
 
+    public static bool moveMode;
+    public static bool timeMode;
+    public static bool randomTime;
+    public static float timeMin;
+    public static float timeMax;
+
     private SteamVR_TrackedObject trackedObj; //manettes
     // 1
     private GameObject collidingObject; //objet qui touche le collider de la manette
-
 
     private AudioSource son;
 
@@ -70,8 +75,43 @@ public class StartGame : MonoBehaviour {
         {
             if (collidingObject)
             {
-                if (collidingObject.gameObject.CompareTag("Play"))
+                if (collidingObject.gameObject.CompareTag("Level1"))
                 {
+                    moveMode = false;
+                    timeMode = false;
+                    randomTime = false;
+                    timeMin = 0;
+                    timeMax = 0;
+                    son.Play();
+                    SceneManager.LoadScene("Game");
+                }
+                else if (collidingObject.gameObject.CompareTag("Level2"))
+                {
+                    moveMode = true;
+                    timeMode = false;
+                    randomTime = false;
+                    timeMin = 0;
+                    timeMax = 0;
+                    son.Play();
+                    SceneManager.LoadScene("Game");
+                }
+                else if (collidingObject.gameObject.CompareTag("Level3"))
+                {
+                    moveMode = true;
+                    timeMode = true;
+                    randomTime = false;
+                    timeMin = 0;
+                    timeMax = 0;
+                    son.Play();
+                    SceneManager.LoadScene("Game");
+                }
+                else if (collidingObject.gameObject.CompareTag("Level4"))
+                {
+                    moveMode = true;
+                    timeMode = true;
+                    randomTime = true;
+                    timeMin = 10;
+                    timeMax = 20;
                     son.Play();
                     SceneManager.LoadScene("Game");
                 }
