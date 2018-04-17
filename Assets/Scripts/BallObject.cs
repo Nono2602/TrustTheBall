@@ -100,7 +100,7 @@ public class BallObject : MonoBehaviour {
             deltaTime = randomFloat(timeMin, timeMax);
         }
         timer = 0;
-
+        sons[2].Play();
     }
 
     private float randomFloat(float min, float max)
